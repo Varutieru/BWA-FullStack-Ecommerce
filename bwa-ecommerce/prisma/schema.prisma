@@ -27,9 +27,18 @@ model User {
   role     RoleUser @default(customer)
 
   orders Order[]
+  sessions Session[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+model Session {
+  id        String   @id
+  userId    Int
+  expiresAt DateTime
+
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
 model Brand {
